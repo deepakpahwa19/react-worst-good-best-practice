@@ -1,30 +1,35 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { listOfCountry, listOfGender, listOfCommunication } from '../data/data';
 import { RadioButton } from './components/RadioButton';
 import { Text } from './components/Text';
 import { Dropdown } from './components/Dropdown';
 
-export const BestApproach = ({ updateInfoToParent }) => {
-    const onSubmitFormHandler = useCallback(() => {
-        console.log('Best Approach Updating parent component');
-        updateInfoToParent({});
-    }, [updateInfoToParent]);
+export const BestApproach = () => {
+    const [name, setName] = useState('');
+    const [gender, setGender] = useState('');
+    const [country, setCountry] = useState('');
+    const [communicationPreference, setCommunication] = useState('');
 
-    const formDetails = useRef({ name: '', gender: '', country: '', communication: '' });
-
-    const updateFormDetails = useCallback((details = {}) => {
-        formDetails.current = { ...formDetails.current, ...details };
-        console.log('formDetails => ', formDetails);
-    }, []);
+    const onClickSubmitHandler = useCallback(() => {
+        const payload = {
+            name,
+            gender,
+            country,
+            communicationPreference
+        };
+        console.log(payload);
+        // send the payload in API call
+    }, [communicationPreference, country, gender, name]);
 
     return (
-        <form className='flex-column h-4vw' onSubmit={onSubmitFormHandler}>
-            <Text label='Name' updateParent={updateFormDetails} propertyName='name' />
-            <Dropdown label='Gender' options={listOfGender} updateParent={updateFormDetails} propertyName='gender' />
-            <Dropdown label='I am from' options={listOfCountry} />
-            <RadioButton name='communication' options={listOfCommunication} />
-            <button type='submit'>Submit</button>
-        </form>
+        <div className='card flex-column h-4vw'>
+            <h3>Best Approach</h3>
+            <Text label='Name' updateParent={setName} />
+            <Dropdown label='Gender' options={listOfGender} updateParent={setGender} />
+            <Dropdown label='I am from' options={listOfCountry} updateParent={setCountry} />
+            <RadioButton name='communication' options={listOfCommunication} updateParent={setCommunication} />
+            <button onClick={onClickSubmitHandler}>Submit</button>
+        </div>
     );
 };

@@ -1,16 +1,16 @@
 import React, { useCallback } from 'react';
 import { useState } from 'react';
 
-export const Dropdown = ({ label, options, updateParent, propertyName }) => {
+export const Dropdown = React.memo(({ label, options, updateParent }) => {
     const [value, setValue] = useState('');
 
-    const onChangeHandler = useCallback(
-        event => {
-            setValue(event?.target?.value || '');
-            updateParent && updateParent({ [propertyName]: event?.target?.value || '' });
-        },
-        [updateParent, propertyName]
-    );
+    const onChangeHandler = useCallback(event => {
+        setValue(event?.target?.value || '');
+    }, []);
+
+    const onBlurHandler = useCallback(() => {
+        updateParent(value);
+    }, [updateParent, value]);
 
     return (
         <div>
@@ -18,7 +18,7 @@ export const Dropdown = ({ label, options, updateParent, propertyName }) => {
                 <strong>{label}</strong>
             </label>
             <br />
-            <select value={value} onChange={onChangeHandler}>
+            <select value={value} onChange={onChangeHandler} onBlur={onBlurHandler}>
                 <option value='Select'>Select</option>
                 {options.map((optionValue, index) => (
                     <option value={optionValue} key={`${optionValue}-${index}`}>
@@ -28,4 +28,4 @@ export const Dropdown = ({ label, options, updateParent, propertyName }) => {
             </select>
         </div>
     );
-};
+});

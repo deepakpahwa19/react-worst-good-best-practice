@@ -5,7 +5,7 @@ import { RadioButton } from './components/RadioButton';
 import { Text } from './components/Text';
 import { Dropdown } from './components/Dropdown';
 
-export const BetterApproach = ({ updateInfoToParent }) => {
+export const BetterApproach = () => {
     const [name, setName] = useState('');
     const [gender, setGender] = useState('');
     const [country, setCountry] = useState('');
@@ -15,19 +15,20 @@ export const BetterApproach = ({ updateInfoToParent }) => {
         setName(event?.target?.value || '');
     }, []);
 
-    const onSubmitFormHandler = useCallback(() => {
-        console.log('Better Approach Updating parent component');
-        updateInfoToParent({
+    const onClickSubmitHandler = useCallback(() => {
+        const payload = {
             name,
             gender,
             country,
             communicationPreference
-        });
-    }, [communicationPreference, name, gender, country, updateInfoToParent]);
+        };
+        console.log(payload);
+        // send the payload in API call
+    }, [name, gender, country, communicationPreference]);
 
-    // console.log(communicationPreference);
     return (
-        <form className='flex-column h-4vw' onSubmit={onSubmitFormHandler}>
+        <div className='card flex-column h-4vw'>
+            <h3>Better Approach</h3>
             <Text label='Name' type='text' value={name} onChangeHandler={onChangeNameHandler} />
             {gender !== 'Male' && (
                 <Dropdown
@@ -43,7 +44,7 @@ export const BetterApproach = ({ updateInfoToParent }) => {
                 options={listOfCommunication}
                 onChangeHandler={event => setCommunicationPreference(event.target.value)}
             />
-            <button type='submit'>Submit</button>
-        </form>
+            <button onClick={onClickSubmitHandler}>Submit</button>
+        </div>
     );
 };

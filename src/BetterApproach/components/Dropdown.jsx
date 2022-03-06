@@ -1,12 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 export const Dropdown = ({ label, options, onSelect, value }) => {
-    useEffect(() => {
-        console.log('Mounting Dropdown component => ', value);
-        return () => {
-            console.log('Unmounting Dropdown component');
-        };
-    }, [value]);
     return (
         <div>
             <label>

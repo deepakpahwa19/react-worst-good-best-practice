@@ -1,12 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 export const RadioButton = ({ options, name, onChangeHandler }) => {
-    useEffect(() => {
-        console.log('Mounting RadioButton component');
-        return () => {
-            console.log('Unmounting RadioButton component');
-        };
-    }, []);
     return (
         <div className='flex-column'>
             {options.map((option, index) => (

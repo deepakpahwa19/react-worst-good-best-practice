@@ -1,15 +1,15 @@
 import React, { useState, useCallback } from 'react';
 
-export const Text = ({ label, updateParent, propertyName }) => {
+export const Text = React.memo(({ label, updateParent }) => {
     const [value, setValue] = useState('');
 
-    const onChangeHandler = useCallback(
-        event => {
-            setValue(event?.target?.value || '');
-            updateParent && updateParent({ [propertyName]: event?.target?.value || '' });
-        },
-        [updateParent, propertyName]
-    );
+    const onChangeHandler = useCallback(event => {
+        setValue(event?.target?.value || '');
+    }, []);
+
+    const onBlurHandler = useCallback(() => {
+        updateParent(value);
+    }, [updateParent, value]);
 
     return (
         <div>
@@ -17,7 +17,7 @@ export const Text = ({ label, updateParent, propertyName }) => {
                 <strong>{label}</strong>
             </label>
             <br />
-            <input type='text' value={value} onChange={onChangeHandler} />
+            <input type='text' value={value} onChange={onChangeHandler} onBlur={onBlurHandler} />
         </div>
     );
-};
+});

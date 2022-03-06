@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { listOfCountry, listOfGender } from '../data/data';
 
-export const WorstApproach = ({ updateInfoToParent }) => {
+export const WorstApproach = () => {
     const [name, setName] = useState('');
     const [gender, setGender] = useState('');
     const [country, setCountry] = useState('');
@@ -12,19 +12,20 @@ export const WorstApproach = ({ updateInfoToParent }) => {
         setName(event?.target?.value || '');
     }, []);
 
-    const onSubmitFormHandler = useCallback(() => {
-        console.log('Worst Approach Updating parent component');
-        updateInfoToParent({
+    const onClickSubmitHandler = useCallback(() => {
+        const payload = {
             name,
             gender,
             country,
             communicationPreference
-        });
-    }, [communicationPreference, name, gender, country, updateInfoToParent]);
+        };
+        console.log(payload);
+        // send the payload in API call
+    }, [communicationPreference, name, gender, country]);
 
-    console.log(communicationPreference);
     return (
-        <form className='flex-column h-4vw' onSubmit={onSubmitFormHandler}>
+        <div className='card flex-column h-4vw'>
+            <h3>Worst Approach</h3>
             <div>
                 <label>
                     <strong>Name:</strong>
@@ -105,7 +106,7 @@ export const WorstApproach = ({ updateInfoToParent }) => {
                     Whatsapp
                 </label>
             </div>
-            <button type='submit'>Submit</button>
-        </form>
+            <button onClick={onClickSubmitHandler}>Submit</button>
+        </div>
     );
 };
