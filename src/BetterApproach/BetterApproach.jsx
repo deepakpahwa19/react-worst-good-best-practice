@@ -30,17 +30,15 @@ export const BetterApproach = () => {
         <div className='card flex-column h-4vw'>
             <h3>Better Approach</h3>
             <Text label='Name' type='text' value={name} onChangeHandler={onChangeNameHandler} />
-            {gender !== 'Male' && (
-                <Dropdown
-                    label='Gender'
-                    value={gender}
-                    options={listOfGender}
-                    onSelect={event => setGender(event.target.value)}
-                />
-            )}
+            <Dropdown
+                label='Gender'
+                value={gender}
+                options={listOfGender}
+                onSelect={event => setGender(event.target.value)}
+            />
             <Dropdown label='I am from' options={listOfCountry} onSelect={event => setCountry(event.target.value)} />
             <RadioButton
-                name='communication'
+                name='communication-2'
                 options={listOfCommunication}
                 onChangeHandler={event => setCommunicationPreference(event.target.value)}
             />

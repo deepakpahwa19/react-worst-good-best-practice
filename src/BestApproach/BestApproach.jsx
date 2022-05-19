@@ -28,7 +28,7 @@ export const BestApproach = () => {
             <Text label='Name' updateParent={setName} />
             <Dropdown label='Gender' options={listOfGender} updateParent={setGender} />
             <Dropdown label='I am from' options={listOfCountry} updateParent={setCountry} />
-            <RadioButton name='communication' options={listOfCommunication} updateParent={setCommunication} />
+            <RadioButton name='communication-1' options={listOfCommunication} updateParent={setCommunication} />
             <button onClick={onClickSubmitHandler}>Submit</button>
         </div>
     );
